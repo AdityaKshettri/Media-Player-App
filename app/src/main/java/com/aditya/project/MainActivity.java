@@ -4,7 +4,6 @@ import android.Manifest;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Environment;
-import android.os.Parcelable;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -22,16 +21,18 @@ import com.karumi.dexter.listener.single.PermissionListener;
 
 import java.io.File;
 import java.util.ArrayList;
-import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
+
+    private ListView listView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        ListView listView = findViewById(R.id.listView);
+        listView = findViewById(R.id.listView);
+
         Dexter.withContext(this)
                 .withPermission(Manifest.permission.READ_EXTERNAL_STORAGE)
                 .withListener(new PermissionListener() {
@@ -71,7 +72,7 @@ public class MainActivity extends AppCompatActivity {
                 .check();
     }
 
-    public ArrayList<File> fetchSongs(File file) {
+    private ArrayList<File> fetchSongs(File file) {
         ArrayList<File> list = new ArrayList<>();
         File[] songs = file.listFiles();
         if (songs != null) {
